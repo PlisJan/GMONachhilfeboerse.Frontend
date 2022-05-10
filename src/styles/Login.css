@@ -1,0 +1,98 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: "Century Gothic", sans-serif;
+  background-image: url("~@/assets/GMO_Eingang.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(124, 124, 124, 0.7);
+  text-align: center;
+  color: white;
+}
+
+footer a {
+  color: white;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  max-width: 360px;
+  margin: auto;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+  font-family: "Century Gothic", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+img {
+  margin-bottom: 30px;
+  width: 75%;
+}
+
+.form button {
+  font-family: "Century Gothic", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4caf50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  /*noinspection CssInvalidPropertyValue*/
+  -webkit-transition: all 0.3 ease;
+  /*noinspection CssInvalidPropertyValue*/
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form button:hover,
+.form button:active,
+.form button:focus {
+  background: #43a047;
+}
+
+.error {
+  padding-top: 0.5vh;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-bottom: 0.5vh;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2px;
+  text-align: left;
+  background-color: rgba(255, 0, 0, 0.56);
+  border-color: rgb(143, 0, 0);
+}

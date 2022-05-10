@@ -1,0 +1,153 @@
+:root {
+  --backgroundLight: #f2f2f2;
+  --backgroundLightHover: #e0e0e0;
+  --backgroundGreen: #99d080;
+  --accentGreen: #4caf50;
+  --accentGreenHover: #3d9640;
+  --textLight: #ffffff;
+  --textDark: #000000;
+  --warnRed: #b10000;
+  --warnRedHover: #bd0000;
+  --formBackground: #d3d3d3ef;
+  --fontFamily: "Century Gothic", sans-serif;
+  --standardHeight: 5vh;
+  --standardMarginVertical: 1vh;
+  --standardMarginHorizontal: 1vw;
+}
+body,
+html {
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+}
+body {
+  font-family: "Century Gothic", sans-serif;
+  background-image: url("~@/assets/GMO_Eingang.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.btn {
+  font-family: "Century Gothic", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4caf50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 30px;
+  /*noinspection CssInvalidPropertyValue*/
+  -webkit-transition: all 0.3 ease;
+  /*noinspection CssInvalidPropertyValue*/
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.webBody {
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  display: flex;
+  flex-direction: column;
+  margin: 2vh 1vw;
+  height: 96vh;
+}
+.menuBar {
+  border-collapse: collapse;
+  width: 100%;
+  height: 6vh;
+  border: none;
+  border-width: 0px;
+  padding: 0;
+  font-size: 1.3rem;
+}
+
+.menuBar th {
+  background-color: var(--backgroundLight);
+  padding: 0;
+  border: none;
+  text-align: center;
+}
+
+.menuBar th img {
+  display: block;
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 4vh;
+  width: auto;
+}
+
+.menuBar .active {
+  background-color: var(--accentGreen);
+  width: 25%;
+  border: none;
+}
+
+.menuBar .txtBtn:not(.active):hover,
+.imgBtn:not(.active):hover {
+  background-color: var(--backgroundLightHover);
+  border: none;
+}
+
+.menuBar .txtBtn div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6vh;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menuBar .txtBtn div {
+  text-align: center;
+  text-decoration: none;
+  color: var(--textDark);
+}
+
+.menuBar .txtBtn {
+  width: 25%;
+}
+
+.menuBar .imgBtn {
+  width: 5%;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a,
+.dropdown-content span {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover,
+.dropdown-content span:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
