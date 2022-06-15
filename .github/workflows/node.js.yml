@@ -21,10 +21,12 @@ jobs:
       with:
         node-version: 16.x
         cache: 'yarn'
-    - run: yarn install --immutable --immutable-cache --check-cache
-    - run: yarn run build --if-present
-    - run: ls -la
-    - run: tar -zcvf GMO_Nachhilfeboerse.tar.gz ./dist/
+    - name: Install Packages
+      run: yarn install --immutable --immutable-cache --check-cache
+    - name: Build VueJS
+      run: yarn run build --if-present
+    - name: Compress dist folder to tar.gz file
+      run: tar -zcvf GMO_Nachhilfeboerse.tar.gz ./dist/
     
     
     - name: Create Release
@@ -37,7 +39,7 @@ jobs:
         tag_name: ${{ github.ref }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
-    - name: Upload APK File
+    - name: Upload Release File
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ github.token }}
