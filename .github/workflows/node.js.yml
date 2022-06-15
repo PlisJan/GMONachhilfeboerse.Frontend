@@ -23,7 +23,7 @@ jobs:
         cache: 'yarn'
     - run: yarn install --immutable --immutable-cache --check-cache
     - run: yarn run build --if-present
-    - run: yarn test
+    - run: ll
     - run: tar -zcvf GMO_Nachhilfeboerse.tar.gz ./dist/
     
     
