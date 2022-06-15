@@ -21,9 +21,9 @@ jobs:
       with:
         node-version: 16.x
         cache: 'yarn'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - run: yarn install --immutable --immutable-cache --check-cache
+    - run: yarn run build --if-present
+    - run: yarn test
     - run: tar -zcvf GMO_Nachhilfeboerse.tar.gz ./dist/
     
     
