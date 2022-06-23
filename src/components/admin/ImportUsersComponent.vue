@@ -34,8 +34,14 @@
           <input
             class="btn middleBtn"
             type="button"
-            value="Startpassöwrter als PDF herunterladen"
-            @click="getStartPasswords"
+            value="Als PDF"
+            @click="getStartPasswordsPDF"
+          />
+          <input
+            class="btn middleBtn"
+            type="button"
+            value="Als CSV"
+            @click="getStartPasswordsCSV"
           />
         </td>
         <td class="btnCell"></td>
@@ -112,7 +118,7 @@ export default defineComponent({
         reader.readAsText(file);
       }
     },
-    getStartPasswords() {
+    getStartPasswordsPDF() {
       getData(
         API_URL +
           "getStartPasswords?token=" +
@@ -144,6 +150,34 @@ export default defineComponent({
         }
 
         doc.save("Startpasswords.pdf");
+      });
+    },
+     getStartPasswordsCSV() {
+      getData(
+        API_URL +
+          "getStartPasswords?token=" +
+          store.state.token +
+          "&username=" +
+          store.state.user
+      ).then((res) => {
+        let csv = 'Klasse,Benutzername,Startpasswort,Notizen\n';
+        for (const key in res) {
+          res[key].forEach(
+            (element: { username: string; startPassword: string }) => {
+              csv += key+"," +
+                element.username +"," +
+                element.startPassword +"," +
+                notes +
+                "\n";
+            }
+          );
+        }
+ 
+      const anchor = document.createElement('a');
+      anchor.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+      anchor.target = '_blank';
+      anchor.download = 'Startpasswords.csv';
+      anchor.click();
       });
     },
     importUser() {
@@ -263,6 +297,6 @@ button:hover,
   background: var(--warnRedHover);
 }
 .middleBtn {
-  width: 60%;
+  width: 30%;
 }
 </style>
