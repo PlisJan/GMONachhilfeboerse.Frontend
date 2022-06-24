@@ -48,33 +48,15 @@
 
         <td class="btnCell"></td>
       </tr>
-      <!-- <tr>
-        <th>Telefon</th>
-        <td>
-          <input
-            type="text"
-            pattern="[+0-9 /\-]+"
-            name="tel"
-            id="IN_tel"
-            value="{personal_data.phonenumber}"
-            disabled
-          />
-        </td>
-        <td class="btnCell">
-          <input class="btn" id="SUBMIT_tel" type="submit" value="OK" hidden />
-        </td>
-        <td class="btnCell">
-          <button
-            type="button"
-            class="changeBTN"
-            id="CBTN_tel"
-            onclick="editBTN_Click(this)"
-          >
-            Ändern
-          </button>
-        </td>
-      </tr> -->
     </table>
+    <div
+      class="msg"
+      :class="{ error: msgType == 'error' }"
+      v-if="msgTitle != ''"
+    >
+      <h2>{{ msgTitle }}</h2>
+      <span v-html="msg"></span>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -83,6 +65,7 @@ import jsPDF from "jspdf";
 
 import { API_URL, getData, postData } from "@/helper/WebApiHelper";
 import { store } from "@/helper/store";
+import { throwStatement } from "@babel/types";
 
 const notes = "Link: https://nachhilfeboerse.gymnasium.oberstadt.de";
 
@@ -90,7 +73,12 @@ export default defineComponent({
   name: "ImportUsersComponent",
 
   data() {
-    return { importData: {} };
+    return {
+      importData: {},
+      msg: "",
+      msgTitle: "",
+      msgType: "success" as "success" | "error",
+    };
   },
 
   methods: {
@@ -152,7 +140,7 @@ export default defineComponent({
         doc.save("Startpasswords.pdf");
       });
     },
-     getStartPasswordsCSV() {
+    getStartPasswordsCSV() {
       getData(
         API_URL +
           "getStartPasswords?token=" +
@@ -160,36 +148,68 @@ export default defineComponent({
           "&username=" +
           store.state.user
       ).then((res) => {
-        let csv = 'Klasse,Benutzername,Startpasswort,Notizen\n';
+        let csv = "Klasse,Benutzername,Startpasswort,Notizen\n";
         for (const key in res) {
           res[key].forEach(
             (element: { username: string; startPassword: string }) => {
-              csv += key+"," +
-                element.username +"," +
-                element.startPassword +"," +
+              csv +=
+                key +
+                "," +
+                element.username +
+                "," +
+                element.startPassword +
+                "," +
                 notes +
                 "\n";
             }
           );
         }
- 
-      const anchor = document.createElement('a');
-      anchor.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-      anchor.target = '_blank';
-      anchor.download = 'Startpasswords.csv';
-      anchor.click();
+
+        const anchor = document.createElement("a");
+        anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+        anchor.target = "_blank";
+        anchor.download = "Startpasswords.csv";
+        anchor.click();
       });
     },
-    importUser() {
+    async importUser() {
       if (this.importData != {}) {
-        postData(
-          API_URL +
-            "importUsers?token=" +
-            store.state.token +
-            "&username=" +
-            store.state.user,
-          this.importData
-        );
+        let returnData: { status?: string; ignored?: string[] } | undefined =
+          undefined;
+        try {
+          returnData = await postData(
+            API_URL +
+              "importUsers?token=" +
+              store.state.token +
+              "&username=" +
+              store.state.user,
+            this.importData
+          );
+        } catch (error) {
+          this.msgTitle = "Import fehlgeschlagen!";
+          this.msg = "";
+          this.msgType = "error";
+          return;
+        }
+
+        if (returnData.status == "imported") {
+          this.msgType = "success";
+          this.msgTitle = "Import erfolgreich!";
+          if (
+            returnData.ignored != undefined &&
+            returnData.ignored.length > 0
+          ) {
+            this.msg = `<p>Es wurden die Personen</p>
+              <p><strong>${returnData.ignored?.join(", ")}</strong></p>
+              <p>übersprungen!</p>`;
+          } else {
+            this.msg = `<p>Es wurden <strong>alle</strong> Personen importiert</p>`;
+          }
+        } else {
+          this.msgType = "error";
+          this.msg = "";
+          this.msgTitle = "Import fehlgeschlagen!";
+        }
       }
     },
   },
@@ -298,5 +318,23 @@ button:hover,
 }
 .middleBtn {
   width: 30%;
+}
+.msg {
+  padding-top: 0.5vh;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-bottom: 0.5vh;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2px;
+  background-color: rgba(76, 175, 80, 0.56);
+  border-color: rgb(8, 127, 35);
+  margin-top: 1vh;
+  text-align: center;
+}
+.error {
+  background-color: rgba(255, 0, 0, 0.56);
+  border-color: rgb(143, 0, 0);
+  color: #1f3143;
 }
 </style>
