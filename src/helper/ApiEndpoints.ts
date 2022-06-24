@@ -1,4 +1,4 @@
-const API_URL = "https://v2202110158863166299.supersrv.de/nachhilfeboerse/api";
+const API_URL = "https://localhost:5000";
 
 const LOGIN = "/login";
 
