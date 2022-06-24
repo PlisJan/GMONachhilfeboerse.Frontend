@@ -111,7 +111,7 @@
                     class="timesInput"
                     name="IN_Monday"
                     placeholder="1;2;5"
-                    oninvalid="this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')"
+                    onchange="this.setCustomValidity('');if(!this.checkValidity()){this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')}"
                     v-model="newOffer.times.Mo"
                   />
                 </td>
@@ -125,7 +125,7 @@
                     class="timesInput"
                     name="IN_Tuesday"
                     placeholder="1;2;5"
-                    oninvalid="this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')"
+                    onchange="this.setCustomValidity('');if(!this.checkValidity()){this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')}"
                     v-model="newOffer.times.Di"
                   />
                 </td>
@@ -139,7 +139,7 @@
                     class="timesInput"
                     name="IN_Wednesday"
                     placeholder="1;2;5"
-                    oninvalid="this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')"
+                    onchange="this.setCustomValidity('');if(!this.checkValidity()){this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')}"
                     v-model="newOffer.times.Mi"
                   />
                 </td>
@@ -153,7 +153,7 @@
                     class="timesInput"
                     name="IN_Thursday"
                     placeholder="1;2;5"
-                    oninvalid="this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')"
+                    onchange="this.setCustomValidity('');if(!this.checkValidity()){this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')}"
                     v-model="newOffer.times.Do"
                   />
                 </td>
@@ -167,7 +167,7 @@
                     class="timesInput"
                     name="IN_Friday"
                     placeholder="1;2;5"
-                    oninvalid="this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')"
+                    onchange="this.setCustomValidity('');if(!this.checkValidity()){this.setCustomValidity('Bitte nutze das vorgegebene Format (1;2;5)')}"
                     v-model="newOffer.times.Fr"
                   />
                 </td>
