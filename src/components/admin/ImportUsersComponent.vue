@@ -67,7 +67,7 @@ import { API_URL, getData, postData } from "@/helper/WebApiHelper";
 import { store } from "@/helper/store";
 import { throwStatement } from "@babel/types";
 
-const notes = "Link: https://nachhilfeboerse.gymnasium.oberstadt.de";
+const notes = "Link: https://nachhilfeboerse.gymnasium-oberstadt.de";
 
 export default defineComponent({
   name: "ImportUsersComponent",
