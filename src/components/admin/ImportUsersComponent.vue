@@ -94,9 +94,9 @@ export default defineComponent({
             data.forEach((element) => {
               let splitted: Array<string> = element.split(",");
               if (splitted[0] in res) {
-                res[splitted[0]].push(splitted[1]);
+                res[splitted[0]].push(splitted[1].replace(/[\n\r\t]/g, ""));
               } else {
-                res[splitted[0]] = [splitted[1]];
+                res[splitted[0]] = [splitted[1].replace(/[\n\r\t]/g, "")];
               }
             });
             this.importData = res;
