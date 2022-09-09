@@ -6,24 +6,13 @@
       <tr>
         <th>Benutzer importieren</th>
         <td>
-          <input
-            type="file"
-            name="IN_name"
-            id="IN_name"
-            ref="doc"
-            accept="text/csv,application/csv,"
-            @change="readFile"
-          />
+          <input type="file" name="IN_name" id="IN_name" ref="doc" accept="text/csv,application/csv,"
+            @change="readFile" />
         </td>
         <td class="btnCell">CSV-File Format: Klasse,Username</td>
 
         <td class="btnCell">
-          <button
-            type="button"
-            class="changeBTN"
-            id="CBTN_name"
-            @click="importUser"
-          >
+          <button type="button" class="changeBTN" id="CBTN_name" @click="importUser">
             Importieren
           </button>
         </td>
@@ -31,29 +20,15 @@
       <tr>
         <th>Startpasswörter abrufen</th>
         <td>
-          <input
-            class="btn middleBtn"
-            type="button"
-            value="Als PDF"
-            @click="getStartPasswordsPDF"
-          />
-          <input
-            class="btn middleBtn"
-            type="button"
-            value="Als CSV"
-            @click="getStartPasswordsCSV"
-          />
+          <input class="btn middleBtn" type="button" value="Als PDF" @click="getStartPasswordsPDF" />
+          <input class="btn middleBtn" type="button" value="Als CSV" @click="getStartPasswordsCSV" />
         </td>
         <td class="btnCell"></td>
 
         <td class="btnCell"></td>
       </tr>
     </table>
-    <div
-      class="msg"
-      :class="{ error: msgType == 'error' }"
-      v-if="msgTitle != ''"
-    >
+    <div class="msg" :class="{ error: msgType == 'error' }" v-if="msgTitle != ''">
       <h2>{{ msgTitle }}</h2>
       <span v-html="msg"></span>
     </div>
@@ -94,9 +69,9 @@ export default defineComponent({
             data.forEach((element) => {
               let splitted: Array<string> = element.split(",");
               if (splitted[0] in res) {
-                res[splitted[0]].push(splitted[1].replace(/[\n\r\t]/g, ""));
+                res[splitted[0]].push(splitted[1].replace(/[\n\r\t]/g, "").trim());
               } else {
-                res[splitted[0]] = [splitted[1].replace(/[\n\r\t]/g, "")];
+                res[splitted[0]] = [splitted[1].replace(/[\n\r\t]/g, "").trim()];
               }
             });
             this.importData = res;
@@ -109,10 +84,10 @@ export default defineComponent({
     getStartPasswordsPDF() {
       getData(
         API_URL +
-          "getStartPasswords?token=" +
-          store.state.token +
-          "&username=" +
-          store.state.user
+        "getStartPasswords?token=" +
+        store.state.token +
+        "&username=" +
+        store.state.user
       ).then((res) => {
         const doc = new jsPDF();
         for (const key in res) {
@@ -143,10 +118,10 @@ export default defineComponent({
     getStartPasswordsCSV() {
       getData(
         API_URL +
-          "getStartPasswords?token=" +
-          store.state.token +
-          "&username=" +
-          store.state.user
+        "getStartPasswords?token=" +
+        store.state.token +
+        "&username=" +
+        store.state.user
       ).then((res) => {
         let csv = "Klasse,Benutzername,Startpasswort,Notizen\n";
         for (const key in res) {
@@ -179,10 +154,10 @@ export default defineComponent({
         try {
           returnData = await postData(
             API_URL +
-              "importUsers?token=" +
-              store.state.token +
-              "&username=" +
-              store.state.user,
+            "importUsers?token=" +
+            store.state.token +
+            "&username=" +
+            store.state.user,
             this.importData
           );
         } catch (error) {
@@ -233,14 +208,17 @@ select {
   width: 60%;
   text-align: center;
 }
+
 input:disabled {
   background: var(--formBackground);
   color: var(--textDark);
 }
+
 h1 {
   font-size: 2vw;
   text-align: center;
 }
+
 .content {
   padding: 20px;
 }
@@ -267,6 +245,7 @@ table th {
 .btnCell {
   width: 12%;
 }
+
 button,
 .btn {
   text-transform: uppercase;
@@ -286,6 +265,7 @@ button,
 input[type="file"] {
   text-align: left;
 }
+
 input[type="file"]::file-selector-button {
   text-transform: uppercase;
   text-align: center;
@@ -305,20 +285,25 @@ td {
   text-align: center;
   vertical-align: middle;
 }
+
 button:hover,
 .btn:hover {
   background: var(--accentGreenHover);
 }
+
 .BTN_Delete {
   background: var(--warnRed);
   width: 50%;
 }
+
 .BTN_Delete:hover {
   background: var(--warnRedHover);
 }
+
 .middleBtn {
   width: 30%;
 }
+
 .msg {
   padding-top: 0.5vh;
   margin-bottom: 10px;
@@ -332,6 +317,7 @@ button:hover,
   margin-top: 1vh;
   text-align: center;
 }
+
 .error {
   background-color: rgba(255, 0, 0, 0.56);
   border-color: rgb(143, 0, 0);
